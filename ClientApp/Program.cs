@@ -1,88 +1,54 @@
-// ClientApp/Program.cs
-
 using System;
 using System.Net;
-using RestSharp;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Serilog;
 
 namespace ClientApp
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             // Configure logging with Serilog
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .CreateLogger();
 
-            // Update the Kong API Gateway base URL
-            var baseUrl = "http://localhost:8000";
+            // Base URL of the Kong API Gateway
+            string kongBaseUrl = "http://localhost:8000";
 
-            Console.WriteLine("Welcome to the Console App!");
-
-            Console.WriteLine("Enter your Windows username:");
-            var username = Console.ReadLine();
-
-            Console.WriteLine("Enter your Windows password:");
-            var password = Console.ReadLine();
-
-            var authenticatedClient = new RestClient(baseUrl);
-            authenticatedClient.Authenticator = new NtlmAuthenticator(username, password);
-
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1. Get current date and time");
-            Console.WriteLine("2. Echo a message");
-
-            var option = Console.ReadLine();
-
-            switch (option)
+            // Create an instance of HttpClient
+            var httpClientHandler = new HttpClientHandler
             {
-                case "1":
-                    GetDateTime(authenticatedClient);
-                    break;
-                case "2":
-                    EchoMessage(authenticatedClient);
-                    break;
-                default:
-                    Console.WriteLine("Invalid option");
-                    break;
-            }
-        }
+                Credentials = new NetworkCredential("<username>", "<password>"),
+                UseDefaultCredentials = false
+            };
+            var httpClient = new HttpClient(httpClientHandler);
 
-        static void GetDateTime(RestClient client)
-        {
-            var request = new RestRequest("/api/datetime", DataFormat.Json);
-            var response = client.Get<DateTime>(request);
+            // Make a request to the desired microservice through the Kong API Gateway
+            string microserviceUrl = $"{kongBaseUrl}/microservice-one";
+            var request = new HttpRequestMessage(HttpMethod.Get, microserviceUrl);
 
-            if (response.StatusCode == HttpStatusCode.OK)
+            // Add any necessary headers to the request
+            // request.Headers.Add("Authorization", "Bearer <access_token>");
+
+            // Send the request and retrieve the response
+            var response = await httpClient.SendAsync(request);
+
+            // Check the response status and content
+            if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("Current date and time:");
-                Console.WriteLine(response.Data);
+                // Handle the successful response
+                var content = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Response content: {content}");
             }
             else
             {
-                Console.WriteLine("Failed to retrieve date and time");
-            }
-        }
-
-        static void EchoMessage(RestClient client)
-        {
-            Console.WriteLine("Enter a message:");
-            var message = Console.ReadLine();
-
-            var request = new RestRequest("/api/echo", DataFormat.Json);
-            request.AddParameter("application/json", message, ParameterType.RequestBody);
-            var response = client.Post<string>(request);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Console.WriteLine("Echoed message:");
-                Console.WriteLine(response.Data);
-            }
-            else
-            {
-                Console.WriteLine("Failed to echo the message");
+                // Handle the failed response
+                Console.WriteLine($"Request failed with status code: {response.StatusCode}");
+                Console.WriteLine($"Error message: {response.ReasonPhrase}");
             }
         }
     }

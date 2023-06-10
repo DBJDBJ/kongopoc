@@ -3,6 +3,7 @@
 - [Console App with Microservices using Kong API Manager](#console-app-with-microservices-using-kong-api-manager)
   - [Prerequisites](#prerequisites)
 - [Configure Kong](#configure-kong)
+  - [Using Konga (Kong Admin GUI):](#using-konga-kong-admin-gui)
   - [Using Kong Admin API:](#using-kong-admin-api)
 - [Usage](#usage)
 
@@ -30,7 +31,7 @@ This is a simple project that consists of a client console app and two microserv
 
 To configure Kong routes and plugins to handle requests from the client app and forward them to the appropriate microservices, you can use the Kong Admin API or Konga, a Kong administration GUI.
 
-Using Konga (Kong Admin GUI):
+### Using Konga (Kong Admin GUI):
 
 1. Install Konga by following the installation instructions provided in the Konga documentation: https://github.com/pantsel/konga
 
@@ -62,7 +63,7 @@ By using either Konga or the Kong Admin API, you can configure the routes and pl
 
 Remember to update your client app to make requests to the Kong API Gateway base URL, which acts as a reverse proxy for your microservices.
 
-# Usage
+## Usage
 
 The client console app provides the following functionalities:
 
