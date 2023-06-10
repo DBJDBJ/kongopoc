@@ -93,7 +93,7 @@ Follow these steps:
    ```
    Ensure that both microservices are running successfully without any errors. Here is properly running MicroServiceTwo on one of the development machines
 
-   ![ ](mstworunning.png)
+   ![ ](../dbjcore/media/mstworunning.png)
 
    You can also see Serilog in action.
 
@@ -120,4 +120,10 @@ By following these steps, you can test your solution by interacting with the cli
 The console app will communicate with the microservices through the Kong API Gateway, and the responses will be displayed in the console.
 
 This is a basic implementation. You can further enhance and customize it according to specific requirements.
+
+<h2>&nbsp;</h2>
+
+![](../dbjcore/media/supersimplecode.png)
+![](../dbjcore/media/dbjlogo.png)
+
 
