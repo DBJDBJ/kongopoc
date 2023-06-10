@@ -5,7 +5,8 @@
 - [Configure Kong](#configure-kong)
   - [Using Konga (Kong Admin GUI):](#using-konga-kong-admin-gui)
   - [Using Kong Admin API:](#using-kong-admin-api)
-- [Usage](#usage)
+- [Before you proceed](#before-you-proceed)
+- [Testing](#testing)
 
 
 ## Console App with Microservices using Kong API Manager
@@ -63,14 +64,58 @@ By using either Konga or the Kong Admin API, you can configure the routes and pl
 
 Remember to update your client app to make requests to the Kong API Gateway base URL, which acts as a reverse proxy for your microservices.
 
-## Usage
+## Before you proceed
+
+We use https protocol, for that we need TLS certificated. In each micro service folder do the following:
+
+```shell
+...\MicroserviceTwo>dotnet dev-certs https --trust
+Trusting the HTTPS development certificate was requested. A confirmation prompt will be displayed if the certificate was not previously trusted. Click yes on the prompt to trust the certificate.
+Successfully created and trusted a new HTTPS certificate.
+```
+
+## Testing
 
 The client console app provides the following functionalities:
 
 - User login: Enter your Windows username and password to authenticate.
 - Microservice ONE: Get the current date and time.
 - Microservice TWO: Send a message to be echoed back.
-  
+
+Follow these steps:
+
+1. Build the Solution. Use Visual Studio.
+
+2. Start the Microservice One and Microservice Two:
+   Open two separate command prompts or terminals and navigate to the respective project folders: `MicroserviceOne` and `MicroserviceTwo`. Run the following command in each terminal to start the services:
+   ```shell
+   dotnet run
+   ```
+   Ensure that both microservices are running successfully without any errors. Here is properly running MicroServiceTwo on one of the development machines
+
+   ![ ](mstworunning.png)
+
+   You can also see Serilog in action.
+
+3. Start the Client App:
+   Open another (third) command prompt or terminal and navigate to the `ClientApp` project folder. Run the following command to start the client app:
+   ```shell
+   dotnet run
+   ```
+   The client app will make a request to the Kong API Gateway, which will route the request to the appropriate microservice based on the configured routes and plugins.
+
+   NOTE: initialy we have hardcoded the console app to call only service one.
+
+4. Check the Console Output:
+   The console output of the client app will display the response received from the microservice. Verify that the response is as expected. If there are any errors, check the console output of the microservices for any relevant error messages.
+
+5. Test Different Scenarios:
+   You can modify the client app's code in `Program.cs` to test different scenarios. For example, you can add headers, parameters, or modify the requested microservice to test different endpoints and functionalities.
+
+6. Validate the Microservice Responses:
+   You can also directly access the microservices' endpoints using their respective URLs (e.g., `http://localhost:5001` for Microservice One, `http://localhost:5002` for Microservice Two) to validate their responses independently from the client app.
+
+By following these steps, you can test your solution by interacting with the client app and verifying the responses received from the microservices.
 
 The console app will communicate with the microservices through the Kong API Gateway, and the responses will be displayed in the console.
 
