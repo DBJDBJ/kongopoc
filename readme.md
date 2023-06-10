@@ -1,12 +1,11 @@
 <h1>Kongo POC</h1>
 
-- [Console App with Microservices using Kong API Manager](#console-app-with-microservices-using-kong-api-manager)
-  - [Prerequisites](#prerequisites)
 - [Configure Kong](#configure-kong)
-  - [Using Konga (Kong Admin GUI):](#using-konga-kong-admin-gui)
-  - [Using Kong Admin API:](#using-kong-admin-api)
-- [Before you proceed](#before-you-proceed)
-- [Testing](#testing)
+  - [KONG in a container](#kong-in-a-container)
+    - [Using Konga (Kong Admin GUI):](#using-konga-kong-admin-gui)
+    - [Using Kong Admin API:](#using-kong-admin-api)
+  - [Before you proceed](#before-you-proceed)
+  - [Testing](#testing)
 
 
 ## Console App with Microservices using Kong API Manager
@@ -18,6 +17,7 @@ This is a simple project that consists of a client console app and two microserv
 ### Prerequisites
 
 - Windows 10 operating system
+- Docker for Windows
 - Visual Studio (2019 or later)
 - .NET Core SDK (3.1 or later)
 - Kong API Manager
@@ -25,7 +25,15 @@ This is a simple project that consists of a client console app and two microserv
 
 
 
-## Configure Kong 
+# Configure Kong 
+
+Kong is configured through yaml configuration.
+
+## [KONG in a container](https://hub.docker.com/r/kong/kong-gateway)
+
+For this POC you do not need Kong peristent storage. Please scroll to How to use this image without a Database.
+
+For (many deep) details one can go to:
    
    - [Kong Installation Guide](https://docs.konghq.com/install/)
    - [Kong Documentation](https://docs.konghq.com/)
@@ -34,7 +42,13 @@ To configure Kong routes and plugins to handle requests from the client app and 
 
 ### Using Konga (Kong Admin GUI):
 
+NOTE: Konga seems to be abandoned 3 years ago.
+NOTE: Another GUI App is [King](https://github.com/ligreman/king), also it seems to be kind of a abandoned.
+NOTE: Kong runs natively on Kubernetes thanks to its official Kubernetes Ingress Controller.
+
 1. Install Konga by following the installation instructions provided in the Konga documentation: https://github.com/pantsel/konga
+
+   There is also a Docker image, [but it was updated 3 years ago](https://hub.docker.com/r/pantsel/konga).
 
 2. Access Konga through the web interface.
 
