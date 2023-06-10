@@ -40,6 +40,8 @@ For (many deep) details one can go to:
 
 To configure Kong routes and plugins to handle requests from the client app and forward them to the appropriate microservices, you can use the Kong Admin API or Konga, a Kong administration GUI.
 
+> If new to Kong start here: https://docs.konghq.com/gateway/latest/get-started/
+
 ### Using Konga (Kong Admin GUI):
 
 NOTE: Konga seems to be abandoned 3 years ago.
