@@ -11,6 +11,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.54.1" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="RestSharp.Authenticators" Version="1.1.1" />
     <PackageReference Include="Serilog" Version="2.12.0" />
