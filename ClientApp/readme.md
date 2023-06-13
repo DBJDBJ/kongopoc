@@ -1,4 +1,4 @@
-This code works, of proper constant are used. It is not simple or trivial and it uses external setups.
+This code works, **if** proper constants are used. It is not simple or trivial and it uses external setups.
 
 - I have used my private Azure Portal to create the API and get the clinet ID etc. For that minimum you need is microsoft ID.
 - For local windows user/pwd combination I warmly suggest to create user to the purpose to use it here. 
